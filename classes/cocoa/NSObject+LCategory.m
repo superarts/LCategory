@@ -1,10 +1,10 @@
-#import "LYObject.h"
+#import "NSObject+LCategory.h"
 
 @implementation NSObject (LYObject)
 
 - (id)release_nil
 {
-	[self release];
+	//[self release];
 	return nil;
 }
 
