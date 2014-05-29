@@ -30,7 +30,10 @@
 	if ([self respondsToSelector:selector] == NO)
 		return nil;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	return [self performSelector:selector];
+#pragma clang diagnostic push
 }
 
 - (id)perform_selector:(SEL)selector with:(id)obj
@@ -38,7 +41,10 @@
 	if ([self respondsToSelector:selector] == NO)
 		return nil;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	return [self performSelector:selector withObject:obj];
+#pragma clang diagnostic push
 }
 
 - (id)perform_selector:(SEL)selector with:(id)obj1 with:(id)obj2
@@ -48,19 +54,22 @@
 	if ([self respondsToSelector:selector] == NO)
 		return nil;
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
 	return [self performSelector:selector withObject:obj1 withObject:obj2];
+#pragma clang diagnostic push
 }
 
 #pragma mark associate
 
 - (void)associate:(NSString*)key with:(id)obj
 {
-	objc_setAssociatedObject(self, key, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
+	objc_setAssociatedObject(self, key.UTF8String, obj, OBJC_ASSOCIATION_RETAIN_NONATOMIC);
 }
 
 - (id)associated:(NSString*)key
 {
-	return objc_getAssociatedObject(self, key);
+	return objc_getAssociatedObject(self, key.UTF8String);
 }
 
 @end

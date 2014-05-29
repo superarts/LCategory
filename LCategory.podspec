@@ -13,8 +13,9 @@ Pod::Spec.new do |s|
 
                        * Include LCategory.h to use.
                        DESC
-  s.homepage         = "http://change.me.lframework.com"
-  s.screenshots      = "change.me.lframework.com/screenshots_1.png", "change.me.lframework.com/screenshots_2.png"
+  s.homepage         = "http://www.superarts.org"
+  s.screenshots      = "http://www.superarts.org/_/rsrc/1299485048239/home/world_256.png", 
+					   "http://www.superarts.org/_/rsrc/1299485069968/home/disc_256.png"
   s.license          = 'MIT'
   s.author           = { "Leo" => "superartstudio@gmail.com" }
   s.source           = { :git => "git@bitbucket.org:superarts/lcategory.git", :tag => s.version.to_s }
