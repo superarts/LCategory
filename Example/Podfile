@@ -1,5 +1,8 @@
 # Uncomment this line to define a global platform for your project
 # platform :ios, '7.0'
+platform :ios
+
+podspec :path => "../LCategory.podspec"
 
 target "Demo" do
   pod "LCategory", :path => "../"

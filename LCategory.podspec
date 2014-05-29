@@ -7,19 +7,18 @@
 Pod::Spec.new do |s|
   s.name             = "LCategory"
   s.version          = "0.1.0"
-  s.summary          = "A short description of LCategory."
+  s.summary          = "Categories of LFramework."
   s.description      = <<-DESC
-                       An optional longer description of LCategory
+                       Categories of LFramework.
 
-                       * Markdown format.
-                       * Don't worry about the indent, we strip it!
+                       * Include LCategory.h to use.
                        DESC
-  s.homepage         = "http://EXAMPLE/NAME"
-  s.screenshots      = "www.example.com/screenshots_1", "www.example.com/screenshots_2"
+  s.homepage         = "http://change.me.lframework.com"
+  s.screenshots      = "change.me.lframework.com/screenshots_1.png", "change.me.lframework.com/screenshots_2.png"
   s.license          = 'MIT'
   s.author           = { "Leo" => "superartstudio@gmail.com" }
-  s.source           = { :git => "http://EXAMPLE/NAME.git", :tag => s.version.to_s }
-  s.social_media_url = 'https://twitter.com/EXAMPLE'
+  s.source           = { :git => "git@bitbucket.org:superarts/lcategory.git", :tag => s.version.to_s }
+  s.social_media_url = 'https://twitter.com/superarts_org'
 
   # s.platform     = :ios, '5.0'
   # s.ios.deployment_target = '5.0'
