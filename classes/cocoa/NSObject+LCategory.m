@@ -32,7 +32,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-	return [self performSelector:selector];
+	[self performSelector:selector];
 #pragma clang diagnostic push
 }
 
@@ -43,7 +43,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-	return [self performSelector:selector withObject:obj];
+	[self performSelector:selector withObject:obj];
 #pragma clang diagnostic push
 }
 
@@ -56,7 +56,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-	return [self performSelector:selector withObject:obj1 withObject:obj2];
+	[self performSelector:selector withObject:obj1 withObject:obj2];
 #pragma clang diagnostic push
 }
 
