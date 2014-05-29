@@ -10,22 +10,22 @@
 
 #pragma mark selector
 
-- (id)perform_string:(NSString*)string
+- (void)perform_string:(NSString*)string
 {
 	return [self perform_selector:NSSelectorFromString(string)];
 }
 
-- (id)perform_string:(NSString*)string with:(id)obj
+- (void)perform_string:(NSString*)string with:(id)obj
 {
 	return [self perform_selector:NSSelectorFromString(string) with:obj];
 }
 
-- (id)perform_string:(NSString*)string with:(id)obj1 with:(id)obj2
+- (void)perform_string:(NSString*)string with:(id)obj1 with:(id)obj2
 {
 	return [self perform_selector:NSSelectorFromString(string) with:obj1 with:obj2];
 }
 
-- (id)perform_selector:(SEL)selector
+- (void)perform_selector:(SEL)selector
 {
 	if ([self respondsToSelector:selector] == NO)
 		return nil;
@@ -36,7 +36,7 @@
 #pragma clang diagnostic push
 }
 
-- (id)perform_selector:(SEL)selector with:(id)obj
+- (void)perform_selector:(SEL)selector with:(id)obj
 {
 	if ([self respondsToSelector:selector] == NO)
 		return nil;
@@ -47,7 +47,7 @@
 #pragma clang diagnostic push
 }
 
-- (id)perform_selector:(SEL)selector with:(id)obj1 with:(id)obj2
+- (void)perform_selector:(SEL)selector with:(id)obj1 with:(id)obj2
 {
 	if (self == nil)
 		return nil;
