@@ -28,7 +28,7 @@
 - (void)perform_selector:(SEL)selector
 {
 	if ([self respondsToSelector:selector] == NO)
-		return nil;
+		return;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -39,7 +39,7 @@
 - (void)perform_selector:(SEL)selector with:(id)obj
 {
 	if ([self respondsToSelector:selector] == NO)
-		return nil;
+		return;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
@@ -50,9 +50,9 @@
 - (void)perform_selector:(SEL)selector with:(id)obj1 with:(id)obj2
 {
 	if (self == nil)
-		return nil;
+		return;
 	if ([self respondsToSelector:selector] == NO)
-		return nil;
+		return;
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
