@@ -1,10 +1,10 @@
-#import "NSObject+LCategory.h"
 #import <Foundation/Foundation.h>
 #import <objc/runtime.h>
+#import "LCategory.h"
 
 @interface NSObject (LCategory)
 
-- (id)release_nil;		//	obj = [obj release_nil];
+//	- (id)release_nil;		//	obj = [obj release_nil];	XXX: switching to ARC
 
 //	safely perform a selector as string
 - (void)perform_string:(NSString*)string;

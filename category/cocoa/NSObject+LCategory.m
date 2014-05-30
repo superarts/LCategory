@@ -2,12 +2,6 @@
 
 @implementation NSObject (LYObject)
 
-- (id)release_nil
-{
-	//[self release];
-	return nil;
-}
-
 #pragma mark selector
 
 - (void)perform_string:(NSString*)string

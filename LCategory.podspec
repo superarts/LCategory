@@ -26,9 +26,11 @@ Pod::Spec.new do |s|
   # s.osx.deployment_target = '10.7'
   s.requires_arc = true
 
-  s.source_files = 'classes/**/*.{h,m}'
+  s.source_files = 'category/**/*.{h,m}'
   # s.resources = 'assets/*.png'
 
+  s.ios.exclude_files = 'Classes/osx/**/*.{h,m}'
+  s.osx.exclude_files = 'Classes/ios/**/*.{h,m}'
   # s.public_header_files = 'classes/**/*.h'
   # s.frameworks = 'SomeFramework', 'AnotherFramework'
   # s.dependency 'JSONKit', '~> 1.4'
