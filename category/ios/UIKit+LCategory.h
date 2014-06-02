@@ -8,3 +8,21 @@
 + (void)show_title:(NSString*)title;
 + (void)show_title:(NSString*)title message:(NSString*)message;
 @end
+
+
+@interface UIView (LCategory)
+
+@property (nonatomic, assign) CGFloat h;
+@property (nonatomic, assign) CGFloat w;
+@property (nonatomic, assign) CGFloat x;
+@property (nonatomic, assign) CGFloat y;
+@property (nonatomic, assign) CGFloat animation_duration;
+
+- (void)animate_x:(CGFloat)x;
+- (void)animate_y:(CGFloat)x;
+- (void)animate_w:(CGFloat)x;
+- (void)animate_h:(CGFloat)x;
+
+@end
+
+

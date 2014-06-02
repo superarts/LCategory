@@ -14,3 +14,7 @@
 #		define log(...)
 #	endif
 #endif
+
+#define k_lf_animation_duration_short	0.3
+#define k_lf_animation_duration_medium	0.5
+#define k_lf_animation_duration_long	0.7
