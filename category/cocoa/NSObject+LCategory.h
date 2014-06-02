@@ -2,6 +2,9 @@
 #import <objc/runtime.h>
 #import "LCategory.h"
 
+//	TODO: split into different files
+
+
 @interface NSObject (LCategory)
 
 //	- (id)release_nil;		//	obj = [obj release_nil];	XXX: switching to ARC
@@ -19,5 +22,21 @@
 //	category instance variables
 - (void)associate:(NSString*)key with:(id)obj;
 - (id)associated:(NSString*)key;
+
+@end
+
+
+@interface NSString (LCategory)
+
+- (BOOL)default_bool;
+- (NSInteger)default_integer;
+- (NSString*)default_string;
+- (id)default_obj;
+- (id)default_object;
+- (void)default_bool:(BOOL)b;
+- (void)default_integer:(NSInteger)i;
+- (void)default_string:(NSString*)s;
+- (void)default_obj:(NSObject*)obj;
+- (void)default_object:(id)obj;
 
 @end

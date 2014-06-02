@@ -1,6 +1,9 @@
 #import "NSObject+LCategory.h"
 
-@implementation NSObject (LYObject)
+//	TODO: split into different files
+
+
+@implementation NSObject (LCategory)
 
 #pragma mark selector
 
@@ -64,6 +67,72 @@
 - (id)associated:(NSString*)key
 {
 	return objc_getAssociatedObject(self, key.UTF8String);
+}
+
+@end
+
+
+@implementation NSString (LCategory)
+
+- (BOOL)default_bool
+{
+	return [[NSUserDefaults standardUserDefaults] boolForKey:self];
+}
+
+- (NSInteger)default_integer
+{
+	return [[NSUserDefaults standardUserDefaults] integerForKey:self];
+}
+
+- (NSString*)default_string
+{
+	return [[NSUserDefaults standardUserDefaults] stringForKey:self];
+}
+
+- (id)default_obj
+{
+	return [NSKeyedUnarchiver unarchiveObjectWithData:[self default_object]];
+}
+
+- (id)default_object
+{
+	return [[NSUserDefaults standardUserDefaults] objectForKey:self];
+}
+
+- (void)default_bool:(BOOL)b
+{
+	[[NSUserDefaults standardUserDefaults] setBool:b forKey:self];
+	[self _default_synchronize];
+}
+
+- (void)default_integer:(NSInteger)i
+{
+	[[NSUserDefaults standardUserDefaults] setInteger:i forKey:self];
+	[self _default_synchronize];
+}
+
+- (void)default_string:(NSString*)s
+{
+	[[NSUserDefaults standardUserDefaults] setObject:s forKey:self];
+	[self _default_synchronize];
+}
+
+- (void)default_obj:(NSObject*)obj
+{
+	[self default_object:[NSKeyedArchiver archivedDataWithRootObject:obj]];
+	[self _default_synchronize];
+}
+
+- (void)default_object:(id)obj
+{
+	[[NSUserDefaults standardUserDefaults] setObject:obj forKey:self];
+	[self _default_synchronize];
+}
+
+- (void)_default_synchronize
+{
+	if ([[NSUserDefaults standardUserDefaults] synchronize] == NO)
+		log(@"WARNING: LCategory - default synchronization failed");
 }
 
 @end
