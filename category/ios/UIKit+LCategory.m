@@ -120,3 +120,45 @@
 }
 
 @end
+
+
+@implementation UIScrollView (LCategory)
+
+- (void)page_reload
+{
+	UIPageControl* page = [self associated:@"lf-page-control"];
+	if (page != nil)
+	{
+		page.numberOfPages = self.contentSize.width / self.frame.size.width;
+		page.currentPage = self.contentOffset.x / self.frame.size.width;
+		page.hidesForSinglePage = NO;
+		[page addTarget:self action:@selector(page_changed:) forControlEvents:UIControlEventValueChanged];
+#if 0
+		NSLog(@"width %f", self.contentInset.right);
+		NSLog(@"size %f", self.frame.size.width);
+		NSLog(@"count %i", page.numberOfPages);
+		NSLog(@"index %i", page.currentPage);
+#endif
+	}
+}
+
+- (void)page_associate:(UIPageControl*)pagecontrol
+{
+	[self associate:@"lf-page-control" with:pagecontrol];
+	[self page_reload];
+	self.delegate = (id<UIScrollViewDelegate>)self;
+}
+
+- (void)page_changed:(UIPageControl*)page
+{
+	[UIView animateWithDuration:self.animation_duration animations:^() {
+		self.contentOffset = CGPointMake(self.frame.size.width * page.currentPage, 0);
+	}];
+}
+
+- (void)scrollViewDidScroll:(UIScrollView*)scroll
+{
+	[self page_reload];
+}
+
+@end
