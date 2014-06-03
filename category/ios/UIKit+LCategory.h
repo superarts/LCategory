@@ -10,7 +10,7 @@
 @end
 
 
-@interface UIView (LCategory)
+@interface UIView (lc_frame)
 
 @property (nonatomic, assign) CGFloat h;
 @property (nonatomic, assign) CGFloat w;
@@ -26,10 +26,23 @@
 @end
 
 
-@interface UIScrollView (LCategory)
+@interface UIScrollView (lc_page_control)
 
 //	if you want to enable delegate for your scroll view, set scroll.delegate then call [scroll page_reload] in scrollViewDidScroll: of your own delegate
 - (void)page_associate:(UIPageControl*)pagecontrol;
 - (void)page_reload;
 
+@end
+
+ 
+@interface UIButton (lc_custom_font)
+@property (nonatomic, copy) NSString* font_name;
+@end
+ 
+@interface UILabel (lc_custom_font)
+@property (nonatomic, copy) NSString* font_name;
+@end
+ 
+@interface UITextField (lc_custom_font)
+@property (nonatomic, copy) NSString* font_name;
 @end

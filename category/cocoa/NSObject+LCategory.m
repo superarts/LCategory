@@ -72,7 +72,7 @@
 @end
 
 
-@implementation NSString (LCategory)
+@implementation NSString (lc_defaults)
 
 - (BOOL)default_bool
 {

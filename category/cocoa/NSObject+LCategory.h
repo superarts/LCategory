@@ -26,7 +26,7 @@
 @end
 
 
-@interface NSString (LCategory)
+@interface NSString (lc_defaults)
 
 - (BOOL)default_bool;
 - (NSInteger)default_integer;

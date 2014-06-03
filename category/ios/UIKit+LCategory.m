@@ -17,7 +17,7 @@
 @end
 
 
-@implementation UIView (LCategory)
+@implementation UIView (lc_frame)
 
 - (CGFloat)h
 {
@@ -122,7 +122,7 @@
 @end
 
 
-@implementation UIScrollView (LCategory)
+@implementation UIScrollView (lc_page_control)
 
 - (void)page_reload
 {
@@ -161,4 +161,43 @@
 	[self page_reload];
 }
 
+@end
+
+
+@implementation UIButton (lc_custom_font)
+ 
+- (NSString *)font_name {
+    return self.titleLabel.font.fontName;
+}
+ 
+- (void)setFont_name:(NSString *)font_name {
+    self.titleLabel.font = [UIFont fontWithName:font_name size:self.titleLabel.font.pointSize];
+}
+ 
+@end
+
+
+@implementation UILabel (lc_custom_font)
+ 
+- (NSString *)font_name {
+    return self.font.fontName;
+}
+ 
+- (void)setFont_name:(NSString *)font_name {
+    self.font = [UIFont fontWithName:font_name size:self.font.pointSize];
+}
+ 
+@end
+ 
+ 
+@implementation UITextField (lc_custom_font)
+ 
+- (NSString *)font_name {
+    return self.font.fontName;
+}
+ 
+- (void)setFont_name:(NSString *)font_name {
+    self.font = [UIFont fontWithName:font_name size:self.font.pointSize];
+}
+ 
 @end
