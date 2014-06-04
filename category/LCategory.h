@@ -13,9 +13,9 @@
 
 #ifndef log
 #	if DEBUG
-#		warning LOGGING ENABLED FOR DEBUG MODE ONLY
+//#		warning LOGGING ENABLED FOR DEBUG MODE ONLY
 #		define log(...)	NSLog(__VA_ARGS__)
-//		define log(fmt, ...) NSLog((@"%s " fmt), __PRETTY_FUNCTION__, ##__VA_ARGS__)
+//#		define log(fmt, ...) NSLog((@"%s " fmt), __PRETTY_FUNCTION__, ##__VA_ARGS__)
 #	else
 #		define log(...)
 #	endif
