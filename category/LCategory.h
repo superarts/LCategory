@@ -2,8 +2,14 @@
 #import "UIKit+LCategory.h"
 
 //	TODO: move macros to LFoundation
-#define UIKitLocalizedString(key)	[[NSBundle bundleWithIdentifier:@"com.apple.UIKit"] localizedStringForKey:key value:@"" table:nil]
-#define _s_uikit(key)				UIKitLocalizedString(key)
+
+#ifndef UIKitLocalizedString
+#	define UIKitLocalizedString(key)	[[NSBundle bundleWithIdentifier:@"com.apple.UIKit"] localizedStringForKey:key value:@"" table:nil]
+#endif
+
+#ifndef _s_uikit
+#	define _s_uikit(key)				UIKitLocalizedString(key)
+#endif
 
 #ifndef log
 #	if DEBUG
@@ -13,6 +19,10 @@
 #	else
 #		define log(...)
 #	endif
+#endif
+
+#ifndef UIColorFromRGB
+#	define UIColorFromRGB(rgbValue) [UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0]
 #endif
 
 #define k_lf_animation_duration_short	0.3
