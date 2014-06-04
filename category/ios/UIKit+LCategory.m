@@ -164,6 +164,21 @@
 @end
 
 
+@implementation UIScreen (LCategory)
+
++ (CGFloat)main_width
+{
+	return UIScreen.mainScreen.bounds.size.width;
+}
+
++ (CGFloat)main_height
+{
+	return UIScreen.mainScreen.bounds.size.height;
+}
+
+@end
+
+
 @implementation UIButton (lc_custom_font)
  
 - (NSString *)font_name {

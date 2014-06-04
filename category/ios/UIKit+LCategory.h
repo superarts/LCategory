@@ -35,6 +35,14 @@
 @end
 
  
+@interface UIScreen (LCategory)
+
++ (CGFloat)main_width;
++ (CGFloat)main_height;
+
+@end
+
+
 @interface UIButton (lc_custom_font)
 @property (nonatomic, copy) NSString* font_name;
 @end
