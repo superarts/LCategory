@@ -18,7 +18,7 @@ Pod::Spec.new do |s|
 					   "http://www.superarts.org/_/rsrc/1299485069968/home/disc_256.png"
   s.license          = 'MIT'
   s.author           = { "Leo" => "superartstudio@gmail.com" }
-  s.source           = { :git => "git@bitbucket.org:superarts/lcategory.git", :tag => s.version.to_s }
+  s.source           = { :git => "https://github.com/superarts/LCategory.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/superarts_org'
 
   s.platform     = :ios, '5.0'
