@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
   s.source           = { :git => "git@bitbucket.org:superarts/lcategory.git", :tag => s.version.to_s }
   s.social_media_url = 'https://twitter.com/superarts_org'
 
-  # s.platform     = :ios, '5.0'
+  s.platform     = :ios, '5.0'
   # s.ios.deployment_target = '5.0'
   # s.osx.deployment_target = '10.7'
   s.requires_arc = true
@@ -32,6 +32,6 @@ Pod::Spec.new do |s|
   s.ios.exclude_files = 'Classes/osx/**/*.{h,m}'
   s.osx.exclude_files = 'Classes/ios/**/*.{h,m}'
   # s.public_header_files = 'classes/**/*.h'
-  # s.frameworks = 'SomeFramework', 'AnotherFramework'
+  s.frameworks = 'UIKit'
   # s.dependency 'JSONKit', '~> 1.4'
 end
