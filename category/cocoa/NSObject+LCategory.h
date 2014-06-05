@@ -40,3 +40,14 @@
 - (void)default_object:(id)obj;
 
 @end
+
+
+@interface NSString (lc_expression)
+
+- (NSString*)url_to_filename;
+- (NSString*)to_url;
+- (NSString*)escape;
+- (BOOL)is_email;
+- (BOOL)is_english_name;
+
+@end
