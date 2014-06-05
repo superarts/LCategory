@@ -198,3 +198,251 @@
 }
 
 @end
+
+
+@implementation NSString (lc_string)
+
+- (BOOL)is:(NSString*)s
+{
+	return [self isEqualToString:s];
+}
+
+- (BOOL)contains:(NSString*)sub
+{
+	if (sub == nil)
+		return NO;
+	if (sub.length == 0)
+		return YES;
+
+	NSRange range = [self rangeOfString:sub];
+	if ((range.location == NSNotFound) && (range.length == 0))
+		return NO;
+
+	return YES;
+}
+
+- (NSString*)string_without_leading_space
+{
+	int i;
+	for (i = 0; i < self.length; i++)
+		if ([self characterAtIndex:i] != ' ')
+			break;
+	return [self substringFromIndex:i];
+}
+
+- (NSString*)string_replace:(NSString*)substring with:(NSString*)replacement
+{
+	NSRange		range;
+	NSString*	s = self;
+
+	range = [s rangeOfString:substring];
+	while (range.location != NSNotFound) 
+	{
+		s = [s stringByReplacingOccurrencesOfString:substring withString:replacement];
+		range = [s rangeOfString:substring];
+		//	NSLog(@"string without: %@", s);
+	}
+
+	return s;
+}
+
+- (NSString*)string_without:(NSString*)head to:(NSString*)tail
+{
+	return [self string_without:head to:tail except:[NSArray arrayWithObjects:nil]];
+}
+
+- (NSString*)string_without:(NSString*)head to:(NSString*)tail except:(NSArray*)exceptions
+{
+	int			i;
+	BOOL		finding_head = YES;
+	NSRange		range_source, range_dest;
+	NSString*	s = [NSString stringWithString:self];
+	NSString*	sub = @"";
+
+	while (sub != nil)
+	{
+		sub = nil; 
+		for (i = 0; i < s.length; i++)
+		{
+			range_source.location = i;
+			if (finding_head)
+			{
+				range_source.length = head.length;
+				if (range_source.length + i > s.length)
+					break;
+				if ([[s substringWithRange:range_source] isEqualToString:head])
+				{
+					//	NSLog(@"found head at: %i", i);
+					range_dest.location = i;
+					finding_head = NO;
+				}
+			}
+			else
+			{
+				range_source.length = tail.length;
+				if (range_source.length + i > s.length)
+					break;
+				if ([[s substringWithRange:range_source] isEqualToString:tail])
+				{
+					//	NSLog(@"found tail at: %i", i);
+					range_dest.length = i - range_dest.location + tail.length;
+					sub = [s substringWithRange:range_dest];
+					finding_head = YES;
+					if ([exceptions containsObject:sub] == NO)
+						break;
+					//	else
+					//	NSLog(@"skipping %@", sub);
+				}
+			}
+		}
+		if (sub != nil)
+		{
+			if ([exceptions containsObject:sub])
+				break;
+			//	NSLog(@"found sub: %@", sub);
+			s = [s stringByReplacingOccurrencesOfString:sub withString:@""];
+		}
+	}
+
+	return s;
+}
+
+- (NSString*)string_between:(NSString*)head and:(NSString*)tail
+{
+	return [self string_between:head and:tail from:0];
+}
+
+- (NSArray*)array_between:(NSString*)head and:(NSString*)tail
+{
+	NSMutableArray* array = [NSMutableArray array];
+	NSRange range_search;
+	int index = 0;
+	NSString* s = [self string_between:head and:tail from:0];
+	while (s != nil)
+	{
+		[array addObject:s];
+		range_search.location = index;
+		range_search.length = self.length - range_search.location;
+		NSRange range = [self rangeOfString:s options:kNilOptions range:range_search];
+		index = range.location + range.length;
+		s = [self string_between:head and:tail from:index];
+		//NSLog(@"searching %i: %@/%@, %@, %@", index, head, tail, s, self);
+	}
+	return array;
+}
+
+- (BOOL)is_hashtag
+{
+	NSArray* array = [self array_hashtag];
+	//	NSLog(@"%@ is hashtag: %@", self, array);
+	if (array.count == 1)
+		if ([self is:[NSString stringWithFormat:@"#%@", array[0]]])
+			return YES;
+	return NO;
+}
+
+- (NSArray*)array_hashtag
+{
+	NSError *error = nil;
+	NSRegularExpression *regex = [NSRegularExpression regularExpressionWithPattern:@"#(\\w+)" options:0 error:&error];
+	NSArray *matches = [regex matchesInString:self options:0 range:NSMakeRange(0, self.length)];
+	NSMutableArray* array = [NSMutableArray array];
+	for (NSTextCheckingResult *match in matches) 
+	{
+		NSRange wordRange = [match rangeAtIndex:1];
+		NSString* word = [self substringWithRange:wordRange];
+		[array addObject:word];
+		//	NSLog(@"Found tag %@", word);
+	}
+	return array;
+}
+
+- (NSString*)string_between:(NSString*)head and:(NSString*)tail from:(int)index
+{
+	NSRange range;
+	NSRange range_search;
+
+	if (index > self.length)
+		return nil;
+
+	range_search.location = index;
+	range_search.length = self.length - range_search.location;
+	NSRange range_head = [self rangeOfString:head options:kNilOptions range:range_search];
+	//	NSLog(@"range: %i/%i", range_head.location, range_head.length);
+	if (range_head.location == NSNotFound)
+		return nil;
+
+	range_search.location = range_head.location + range_head.length;
+	range_search.length = self.length - range_search.location;
+	NSRange range_tail = [self rangeOfString:tail options:kNilOptions range:range_search];
+	//	NSLog(@"range: %i/%i", range_tail.location, range_tail.length);
+	if (range_tail.location == NSNotFound)
+		return nil;
+
+	range.location = range_head.location + range_head.length;
+	range.length = range_tail.location - range.location;
+	//	NSLog(@"range: %i/%i", range.location, range.length);
+
+	return [self substringWithRange:range];
+}
+
++ (NSString*)string_from_int:(int)i
+{
+	return [NSString stringWithFormat:@"%i", i];
+}
+
+- (NSString*)s_int:(int)i
+{
+	if (i <= 1)
+		return [NSString stringWithFormat:@"%i %@", i, self];
+	else
+		return [NSString stringWithFormat:@"%i %@s", i, self];
+}
+
+- (NSString*)s_int_with_no:(int)i
+{
+	if (i == 0)
+		return [NSString stringWithFormat:@"no %@", self];
+	else if (i <= 1)
+		return [NSString stringWithFormat:@"%i %@", i, self];
+	else
+		return [NSString stringWithFormat:@"%i %@s", i, self];
+}
+
+- (NSString*)s_int_with_No:(int)i
+{
+	if (i == 0)
+		return [NSString stringWithFormat:@"No %@", self];
+	else if (i <= 1)
+		return [NSString stringWithFormat:@"%i %@", i, self];
+	else
+		return [NSString stringWithFormat:@"%i %@s", i, self];
+}
+
+- (NSString*)append_line:(NSString*)str
+{
+	return [self append_line:str divider:@"\n"];
+}
+
+- (NSString*)append_line2:(NSString*)str
+{
+	return [self append_line:str divider:@"\n\n"];
+}
+
+- (NSString*)append_line:(NSString*)str divider:(NSString*)divider
+{
+	//	NSLog(@"appending: '%@'", str);
+	if (str != nil)
+		if ([str isKindOfClass:[NSString class]])
+			if (str.length > 0)
+			{
+				if (self.length > 0)
+					return [NSString stringWithFormat:@"%@%@%@", self, divider, str];
+				else
+					return str;
+			}
+	//	NSLog(@"return self: '%@'", self);
+	return self;
+}
+
+@end
