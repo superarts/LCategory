@@ -51,6 +51,10 @@
 @property (nonatomic, copy) NSString* font_name;
 @end
  
+@interface UITextView (lc_custom_font)
+@property (nonatomic, copy) NSString* font_name;
+@end
+ 
 @interface UITextField (lc_custom_font)
 @property (nonatomic, copy) NSString* font_name;
 @end

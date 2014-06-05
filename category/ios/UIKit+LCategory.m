@@ -205,6 +205,19 @@
 @end
  
  
+@implementation UITextView (lc_custom_font)
+ 
+- (NSString *)font_name {
+    return self.font.fontName;
+}
+ 
+- (void)setFont_name:(NSString *)font_name {
+    self.font = [UIFont fontWithName:font_name size:self.font.pointSize];
+}
+ 
+@end
+ 
+ 
 @implementation UITextField (lc_custom_font)
  
 - (NSString *)font_name {
