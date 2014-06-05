@@ -1,14 +1,10 @@
 # LCategory
 
-/*
-[![Version](https://img.shields.io/cocoapods/v/LCategory.svg?style=flat)](http://cocoadocs.org/docsets/LCategory)
-[![License](https://img.shields.io/cocoapods/l/LCategory.svg?style=flat)](http://cocoadocs.org/docsets/LCategory)
-[![Platform](https://img.shields.io/cocoapods/p/LCategory.svg?style=flat)](http://cocoadocs.org/docsets/LCategory)
-*/
+[![Logo](http://fc00.deviantart.net/fs70/f/2012/013/8/f/profile_picture_by_l_master-d4m8318.jpg)](http://cocoadocs.org/docsets/LCategory)
 
 ## Usage
 
-To run the example project; clone the repo, and run `pod install` from the Example directory first.
+Please go to LFramework for demos.
 
 ## Requirements
 
@@ -21,7 +17,7 @@ it, simply add the following line to your Podfile:
 
 ## Author
 
-Leo, superartstudio@gmail.com
+Leo
 
 ## License
 
