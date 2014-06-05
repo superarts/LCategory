@@ -1,8 +1,10 @@
 # LCategory
 
+/*
 [![Version](https://img.shields.io/cocoapods/v/LCategory.svg?style=flat)](http://cocoadocs.org/docsets/LCategory)
 [![License](https://img.shields.io/cocoapods/l/LCategory.svg?style=flat)](http://cocoadocs.org/docsets/LCategory)
 [![Platform](https://img.shields.io/cocoapods/p/LCategory.svg?style=flat)](http://cocoadocs.org/docsets/LCategory)
+*/
 
 ## Usage
 
