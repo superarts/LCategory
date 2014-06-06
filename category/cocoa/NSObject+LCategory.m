@@ -391,6 +391,8 @@
 	return [NSString stringWithFormat:@"%i", i];
 }
 
+//	TODO: this method is not good enough for plural form handling
+#if 0
 - (NSString*)s_int:(int)i
 {
 	if (i <= 1)
@@ -418,18 +420,19 @@
 	else
 		return [NSString stringWithFormat:@"%i %@s", i, self];
 }
+#endif
 
 - (NSString*)append_line:(NSString*)str
 {
-	return [self append_line:str divider:@"\n"];
+	return [self append:str divider:@"\n"];
 }
 
 - (NSString*)append_line2:(NSString*)str
 {
-	return [self append_line:str divider:@"\n\n"];
+	return [self append:str divider:@"\n\n"];
 }
 
-- (NSString*)append_line:(NSString*)str divider:(NSString*)divider
+- (NSString*)append:(NSString*)str divider:(NSString*)divider
 {
 	//	NSLog(@"appending: '%@'", str);
 	if (str != nil)

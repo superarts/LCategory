@@ -122,6 +122,32 @@
 @end
 
 
+@implementation UIView (lc_mask)
+
+- (void)enable_mask_circle
+{
+	CGFloat f = self.w < self.h ? self.w : self.h;
+	self.layer.cornerRadius = f / 2;
+	self.layer.masksToBounds = YES;
+}
+
+- (void)enable_mask_circle_width:(CGFloat)width color:(UIColor*)color
+{
+	CGFloat f = self.w < self.h ? self.w : self.h;
+	[self enable_border_width:width color:color radius:f / 2];
+}
+
+- (void)enable_border_width:(CGFloat)width color:(UIColor*)color radius:(CGFloat)radius
+{
+	self.layer.borderWidth = width;
+	self.layer.borderColor = [color CGColor];
+	self.layer.cornerRadius = radius;
+	self.layer.masksToBounds = YES;
+}
+
+@end
+
+
 @implementation UIScrollView (lc_page_control)
 
 - (void)page_reload
@@ -228,4 +254,60 @@
     self.font = [UIFont fontWithName:font_name size:self.font.pointSize];
 }
  
+@end
+
+
+@implementation UIImageView (lc_content_image)
+
+- (CGSize)content_scales
+{
+    CGFloat sx = self.frame.size.width / self.image.size.width;
+    CGFloat sy = self.frame.size.height / self.image.size.height;
+    CGFloat s = 1.0;
+    switch (self.contentMode) {
+        case UIViewContentModeScaleAspectFit:
+            s = fminf(sx, sy);
+            return CGSizeMake(s, s);
+            break;
+
+        case UIViewContentModeScaleAspectFill:
+            s = fmaxf(sx, sy);
+            return CGSizeMake(s, s);
+            break;
+
+        case UIViewContentModeScaleToFill:
+            return CGSizeMake(sx, sy);
+
+        default:
+            return CGSizeMake(s, s);
+    }
+}
+
+- (CGRect)content_bounds 
+{
+    UIImage *image = [self image];
+    if(self.contentMode != UIViewContentModeScaleAspectFit || !image)
+        return CGRectInfinite;
+
+    CGFloat boundsWidth  = [self bounds].size.width,
+            boundsHeight = [self bounds].size.height;
+
+    CGSize  imageSize  = [image size];
+    CGFloat imageRatio = imageSize.width / imageSize.height;
+    CGFloat viewRatio  = boundsWidth / boundsHeight;
+
+    if(imageRatio < viewRatio) {
+        CGFloat scale = boundsHeight / imageSize.height;
+        CGFloat width = scale * imageSize.width;
+        CGFloat topLeftX = (boundsWidth - width) * 0.5;
+        return CGRectMake(topLeftX, 0, width, boundsHeight);
+    }
+
+    CGFloat scale = boundsWidth / imageSize.width;
+    CGFloat height = scale * imageSize.height;
+    CGFloat topLeftY = (boundsHeight - height) * 0.5;
+
+    return CGRectMake(0, topLeftY, boundsWidth, height);
+}
+
 @end

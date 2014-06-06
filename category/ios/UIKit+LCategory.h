@@ -26,6 +26,15 @@
 @end
 
 
+@interface UIView (lc_mask)
+
+- (void)enable_mask_circle;
+- (void)enable_mask_circle_width:(CGFloat)width color:(UIColor*)color;
+- (void)enable_border_width:(CGFloat)width color:(UIColor*)color radius:(CGFloat)radius;
+
+@end
+
+
 @interface UIScrollView (lc_page_control)
 
 //	if you want to enable delegate for your scroll view, set scroll.delegate then call [scroll page_reload] in scrollViewDidScroll: of your own delegate
@@ -57,4 +66,12 @@
  
 @interface UITextField (lc_custom_font)
 @property (nonatomic, copy) NSString* font_name;
+@end
+
+
+@interface UIImageView (lc_content_image)
+
+- (CGSize)content_scales;
+- (CGRect)content_bounds;
+
 @end

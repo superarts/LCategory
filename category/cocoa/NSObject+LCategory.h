@@ -67,11 +67,13 @@
 - (BOOL)is_hashtag;
 - (NSArray*)array_hashtag;
 + (NSString*)string_from_int:(int)i;
+#if 0
 - (NSString*)s_int:(int)i;				//	[@"photo" s_int:3] == @"3 photos"
 - (NSString*)s_int_with_no:(int)i;
 - (NSString*)s_int_with_No:(int)i;
+#endif
 - (NSString*)append_line:(NSString*)str;
 - (NSString*)append_line2:(NSString*)str;
-- (NSString*)append_line:(NSString*)str divider:(NSString*)divider;
+- (NSString*)append:(NSString*)str divider:(NSString*)divider;
 
 @end
