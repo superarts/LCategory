@@ -316,7 +316,7 @@
 {
 	NSMutableArray* array = [NSMutableArray array];
 	NSRange range_search;
-	NSInteger index = 0;
+	int index = 0;
 	NSString* s = [self string_between:head and:tail from:0];
 	while (s != nil)
 	{
@@ -357,7 +357,7 @@
 	return array;
 }
 
-- (NSString*)string_between:(NSString*)head and:(NSString*)tail from:(NSInteger)index
+- (NSString*)string_between:(NSString*)head and:(NSString*)tail from:(int)index
 {
 	NSRange range;
 	NSRange range_search;
