@@ -357,7 +357,7 @@
 	return array;
 }
 
-- (NSString*)string_between:(NSString*)head and:(NSString*)tail from:(int)index
+- (NSString*)string_between:(NSString*)head and:(NSString*)tail from:(NSInteger)index
 {
 	NSRange range;
 	NSRange range_search;
