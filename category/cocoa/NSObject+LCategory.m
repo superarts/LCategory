@@ -324,7 +324,7 @@
 		range_search.location = index;
 		range_search.length = self.length - range_search.location;
 		NSRange range = [self rangeOfString:s options:kNilOptions range:range_search];
-		index = range.location + range.length;
+		index = (int)(range.location + range.length);
 		s = [self string_between:head and:tail from:index];
 		//NSLog(@"searching %i: %@/%@, %@, %@", index, head, tail, s, self);
 	}
