@@ -169,33 +169,26 @@
 
 - (void)_lf_keyboard_will_show:(NSNotification*)notification
 {
-	NSLog(@"xx1");
 	UIResponder* responder	= [self associated:@"lf-keyboard-accessory-responder"];
 	if (![responder isFirstResponder])
 		return;
-	NSLog(@"xx2");
 	//	log(@"keyboard: %@", notification.userInfo);
 	UIButton* button_mask	= [self associated:@"lf-keyboard-accessory-mask"];
 	UIView* view_accessory	= [self associated:@"lf-keyboard-accessory-view"];
-	NSLog(@"xx3");
 	UIViewAnimationCurve	curve;
 	CGSize size = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
 	[[notification.userInfo valueForKey:UIKeyboardAnimationCurveUserInfoKey]
 							   getValue:&curve];
-	NSLog(@"xx4");
 	[self associate:@"lf-keyboard-accessory-curve" with:@(curve)];
 
-	NSLog(@"xx5");
 	[UIView beginAnimations:nil context:nil];
 	[UIView setAnimationDuration:0.5];
 	[UIView setAnimationCurve:curve];
 	view_accessory.y = UIScreen.main_height - size.height - view_accessory.h;
 	[UIView commitAnimations];
-	NSLog(@"xx6");
 	
 	[self addSubview:button_mask];
 	[self bringSubviewToFront:view_accessory];
-	NSLog(@"xx7");
 }
 
 - (void)lf_action_keyboard_accessory_dismiss
