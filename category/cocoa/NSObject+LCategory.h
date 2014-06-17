@@ -77,3 +77,10 @@
 - (NSString*)append:(NSString*)str divider:(NSString*)divider;
 
 @end
+
+
+@interface NSNotificationCenter (lc_unique_notification)
+
+- (void)add_observer_unique:(id)observer selector:(SEL)selector name:(NSString *)name object:(id)object;
+
+@end
