@@ -148,6 +148,64 @@
 @end
 
 
+@implementation UIView (lc_keyboard_accessory)
+
+- (void)set_keyboard_accessory:(UIView*)view_accessory responder:(UIResponder*)responder enable_mask:(BOOL)enable_mask;
+{
+	[self associate:@"lf-keyboard-accessory-view" with:view_accessory];
+	[self associate:@"lf-keyboard-accessory-responder" with:responder];
+	[[NSNotificationCenter defaultCenter] addObserver:self
+											 selector:@selector(_lf_keyboard_will_show:)
+												 name:UIKeyboardWillShowNotification
+											   object:nil];
+	//[self removeConstraints:view_accessory.constraints];
+	if (enable_mask)
+	{
+		UIButton* button_mask = [[UIButton alloc] initWithFrame:UIScreen.mainScreen.bounds];
+		[button_mask addTarget:self action:@selector(lf_action_keyboard_accessory_dismiss) forControlEvents:UIControlEventTouchUpInside];
+		[self associate:@"lf-keyboard-accessory-mask" with:button_mask];
+	}
+}
+
+- (void)_lf_keyboard_will_show:(NSNotification*)notification
+{
+	//	log(@"keyboard: %@", notification.userInfo);
+	UIButton* button_mask	= [self associated:@"lf-keyboard-accessory-mask"];
+	UIView* view_accessory	= [self associated:@"lf-keyboard-accessory-view"];
+	UIViewAnimationCurve	curve;
+	CGSize size = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
+	[[notification.userInfo valueForKey:UIKeyboardAnimationCurveUserInfoKey]
+							   getValue:&curve];
+	[self associate:@"lf-keyboard-accessory-curve" with:@(curve)];
+
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.5];
+	[UIView setAnimationCurve:curve];
+	view_accessory.y = UIScreen.main_height - size.height - view_accessory.h;
+	[UIView commitAnimations];
+	
+	[self addSubview:button_mask];
+	[self bringSubviewToFront:view_accessory];
+}
+
+- (void)lf_action_keyboard_accessory_dismiss
+{
+	UIView* view_accessory	= [self associated:@"lf-keyboard-accessory-view"];
+	UIButton* button_mask	= [self associated:@"lf-keyboard-accessory-mask"];
+	UIResponder* responder	= [self associated:@"lf-keyboard-accessory-responder"];
+	UIViewAnimationCurve curve = [[self associated:@"lf-keyboard-accessory-curve"] intValue];
+	[button_mask removeFromSuperview];
+	[responder resignFirstResponder];
+	[UIView beginAnimations:nil context:nil];
+	[UIView setAnimationDuration:0.5];
+	[UIView setAnimationCurve:curve];
+	view_accessory.y = UIScreen.main_height - view_accessory.h;
+	[UIView commitAnimations];
+}
+
+@end
+
+
 @implementation UIScrollView (lc_page_control)
 
 - (void)page_reload

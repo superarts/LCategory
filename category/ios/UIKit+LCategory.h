@@ -35,6 +35,15 @@
 @end
 
 
+@interface UIView (lc_keyboard_accessory)
+
+//	TODO: currently auto layout needs to be turned of for view_accessory in IB in order to get it work.
+- (void)set_keyboard_accessory:(UIView*)view_accessory responder:(UIResponder*)responder enable_mask:(BOOL)enable_mask;
+- (void)lf_action_keyboard_accessory_dismiss;
+
+@end
+
+
 @interface UIScrollView (lc_page_control)
 
 //	if you want to enable delegate for your scroll view, set scroll.delegate then call [scroll page_reload] in scrollViewDidScroll: of your own delegate
