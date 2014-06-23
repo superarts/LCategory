@@ -44,6 +44,13 @@
 @end
 
 
+@interface UIView (lc_subview)
+
+- (void)remove_all_subviews;
+
+@end
+
+
 @interface UIScrollView (lc_page_control)
 
 //	if you want to enable delegate for your scroll view, set scroll.delegate then call [scroll page_reload] in scrollViewDidScroll: of your own delegate

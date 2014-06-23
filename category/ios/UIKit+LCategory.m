@@ -209,6 +209,16 @@
 @end
 
 
+@implementation UIView (lc_subview)
+
+- (void)remove_all_subviews
+{
+	[self.subviews makeObjectsPerformSelector:@selector(removeFromSuperview)];
+}
+
+@end
+
+
 @implementation UIScrollView (lc_page_control)
 
 - (void)page_reload
