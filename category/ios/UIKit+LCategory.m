@@ -17,6 +17,17 @@
 @end
 
 
+@implementation UIViewController (LCategory)
+- (id)child_controller_named:(NSString*)class_name
+{
+	for (UIViewController* controller in self.childViewControllers)
+		if ([controller isKindOfClass:NSClassFromString(class_name)])
+			return controller;
+	return nil;
+}
+@end
+
+
 @implementation UIView (lc_frame)
 
 - (CGFloat)h

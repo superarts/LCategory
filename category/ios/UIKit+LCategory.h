@@ -10,6 +10,11 @@
 @end
 
 
+@interface UIViewController (LCategory)
+- (id)child_controller_named:(NSString*)class_name;
+@end
+
+
 @interface UIView (lc_frame)
 
 @property (nonatomic, assign) CGFloat h;
