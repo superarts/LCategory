@@ -30,11 +30,15 @@
 
 - (BOOL)default_bool;
 - (NSInteger)default_integer;
+- (int)default_int;
 - (NSString*)default_string;
 - (id)default_obj;
 - (id)default_object;
 - (void)default_bool:(BOOL)b;
 - (void)default_integer:(NSInteger)i;
+- (void)default_int:(int)i;
+- (int)default_int_inc;
+- (int)default_int_dec;
 - (void)default_string:(NSString*)s;
 - (void)default_obj:(NSObject*)obj;
 - (void)default_object:(id)obj;

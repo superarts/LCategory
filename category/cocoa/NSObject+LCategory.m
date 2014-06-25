@@ -84,6 +84,11 @@
 	return [[NSUserDefaults standardUserDefaults] integerForKey:self];
 }
 
+- (int)default_int
+{
+	return (int)[self default_integer];
+}
+
 - (NSString*)default_string
 {
 	return [[NSUserDefaults standardUserDefaults] stringForKey:self];
@@ -109,6 +114,25 @@
 {
 	[[NSUserDefaults standardUserDefaults] setInteger:i forKey:self];
 	[self _default_synchronize];
+}
+
+- (void)default_int:(int)i
+{
+	[self default_integer:i];
+}
+
+- (int)default_int_inc
+{
+	int i = [self default_int];
+	[self default_int:i + 1];
+	return i;
+}
+
+- (int)default_int_dec
+{
+	int i = [self default_int];
+	[self default_int:i - 1];
+	return i;
 }
 
 - (void)default_string:(NSString*)s
