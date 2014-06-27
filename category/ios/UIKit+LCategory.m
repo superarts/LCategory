@@ -161,10 +161,18 @@
 
 @implementation UIView (lc_keyboard_accessory)
 
-- (void)set_keyboard_accessory:(UIView*)view_accessory responder:(UIResponder*)responder enable_mask:(BOOL)enable_mask;
+- (void)set_keyboard_accessory:(UIView*)view_accessory responder:(UIResponder*)responder enable_mask:(BOOL)enable_mask
+{
+	[self set_keyboard_accessory:view_accessory button:nil responder:responder enable_mask:enable_mask];
+}
+
+- (void)set_keyboard_accessory:(UIView*)view_accessory button:(UIButton*)button responder:(UIResponder*)responder enable_mask:(BOOL)enable_mask;
 {
 	[self associate:@"lf-keyboard-accessory-view" with:view_accessory];
+	[self associate:@"lf-keyboard-accessory-button" with:button];
 	[self associate:@"lf-keyboard-accessory-responder" with:responder];
+	if (button) button.enabled = NO;
+
 	[[NSNotificationCenter defaultCenter] add_observer_unique:self
 											 selector:@selector(_lf_keyboard_will_show:)
 												 name:UIKeyboardWillShowNotification
@@ -186,6 +194,9 @@
 	//	log(@"keyboard: %@", notification.userInfo);
 	UIButton* button_mask	= [self associated:@"lf-keyboard-accessory-mask"];
 	UIView* view_accessory	= [self associated:@"lf-keyboard-accessory-view"];
+	UIButton* view_button	= [self associated:@"lf-keyboard-accessory-button"];
+	if (button) button.enabled = YES;
+
 	UIViewAnimationCurve	curve;
 	CGSize size = [[notification.userInfo objectForKey:UIKeyboardFrameEndUserInfoKey] CGRectValue].size;
 	[[notification.userInfo valueForKey:UIKeyboardAnimationCurveUserInfoKey]
@@ -207,6 +218,9 @@
 	UIView* view_accessory	= [self associated:@"lf-keyboard-accessory-view"];
 	UIButton* button_mask	= [self associated:@"lf-keyboard-accessory-mask"];
 	UIResponder* responder	= [self associated:@"lf-keyboard-accessory-responder"];
+	UIButton* view_button	= [self associated:@"lf-keyboard-accessory-button"];
+	if (button) button.enabled = YES;
+
 	UIViewAnimationCurve curve = [[self associated:@"lf-keyboard-accessory-curve"] intValue];
 	[button_mask removeFromSuperview];
 	[responder resignFirstResponder];
