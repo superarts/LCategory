@@ -194,7 +194,7 @@
 	//	log(@"keyboard: %@", notification.userInfo);
 	UIButton* button_mask	= [self associated:@"lf-keyboard-accessory-mask"];
 	UIView* view_accessory	= [self associated:@"lf-keyboard-accessory-view"];
-	UIButton* view_button	= [self associated:@"lf-keyboard-accessory-button"];
+	UIButton* button		= [self associated:@"lf-keyboard-accessory-button"];
 	if (button) button.enabled = YES;
 
 	UIViewAnimationCurve	curve;
@@ -218,7 +218,7 @@
 	UIView* view_accessory	= [self associated:@"lf-keyboard-accessory-view"];
 	UIButton* button_mask	= [self associated:@"lf-keyboard-accessory-mask"];
 	UIResponder* responder	= [self associated:@"lf-keyboard-accessory-responder"];
-	UIButton* view_button	= [self associated:@"lf-keyboard-accessory-button"];
+	UIButton* button		= [self associated:@"lf-keyboard-accessory-button"];
 	if (button) button.enabled = YES;
 
 	UIViewAnimationCurve curve = [[self associated:@"lf-keyboard-accessory-curve"] intValue];
