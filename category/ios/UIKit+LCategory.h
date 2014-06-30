@@ -97,3 +97,44 @@
 - (CGRect)content_bounds;
 
 @end
+
+
+/*
+   Use "lc_property/synthesize" to generate properties for categories:
+
+	.h: lc_property(NSMutableArray*,counts);
+	.m: lc_synthesize(NSMutableArray*,counts);
+ */
+
+#define lf_str(x)	#x
+#define lf_cat(a,b)	a##b
+
+#define lc_property(TYPE, NAME) \
+    @property (setter=set_##NAME:, getter=get_##NAME) TYPE NAME; \
+
+#define lc_synthesize(TYPE, NAME) \
+    - (void)set_##NAME:(TYPE)NAME \
+	{ \
+		NSString* key = @lf_str(lf_cat(lc-table-,NAME)); \
+		[self associate:key with:NAME]; \
+	} \
+    - (TYPE)get_##NAME \
+	{ \
+		NSString* key = @lf_str(lf_cat(lc-table-,NAME)); \
+		return [self associated:key]; \
+	} \
+
+typedef void(^LFBlockVoidPath)					(NSIndexPath* path);
+typedef UITableViewCell*(^LFBlockCellPath)		(NSIndexPath* path);
+typedef UITableViewCell*(^LFBlockCellTablePath)	(UITableView* table, NSIndexPath* path);
+
+@interface UITableView (lc_block) <UITableViewDelegate, UITableViewDataSource>
+
+lc_property(NSMutableArray*,counts);
+lc_property(LFBlockCellPath,block_cell);
+lc_property(LFBlockVoidPath,block_select);
+
+- (void)enable_block;
+- (void)reload_block;
+
+@end

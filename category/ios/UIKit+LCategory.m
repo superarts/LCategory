@@ -407,3 +407,52 @@
 }
 
 @end
+
+
+@implementation UITableView (lc_block)
+
+lc_synthesize(NSMutableArray*,counts);
+lc_synthesize(LFBlockCellPath,block_cell);
+lc_synthesize(LFBlockVoidPath,block_select);
+
+- (void)enable_block
+{
+	self.dataSource = self;
+	self.delegate = self;
+	//self.counts = [NSMutableArray new];
+	//self.block_cell = nil;
+}
+
+- (void)reload_block
+{
+	[self enable_block];
+	[self reloadData];
+}
+
+- (NSInteger)tableView:(UITableView*)table numberOfRowsInSection:(NSInteger)section
+{
+	if (table == self)
+		if ([self.counts isKindOfClass:[NSArray class]])
+			if (self.counts.count > section)
+				if ([self.counts[section] isKindOfClass:[NSNumber class]])
+					return [self.counts[section] intValue];
+	return 0;
+}
+
+- (UITableViewCell*)tableView:(UITableView*)table cellForRowAtIndexPath:(NSIndexPath*)path
+{
+	UITableViewCell* cell = nil;//[tableView dequeueReusableCellWithIdentifier:@"HLCSCellNotification"];
+	if (table == self)
+		if (self.block_cell)
+			cell = self.block_cell(path);
+	return cell;
+}
+
+- (void)tableView:(UITableView*)table didSelectRowAtIndexPath:(NSIndexPath*)path
+{
+	if (table == self)
+		if (self.block_select)
+			self.block_select(path);
+}
+
+@end
