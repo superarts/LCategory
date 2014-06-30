@@ -45,6 +45,7 @@
 //	TODO: currently auto layout needs to be turned of for view_accessory in IB in order to get it work.
 - (void)set_keyboard_accessory:(UIView*)view_accessory responder:(UIResponder*)responder enable_mask:(BOOL)enable_mask;
 - (void)set_keyboard_accessory:(UIView*)view_accessory button:(UIButton*)button responder:(UIResponder*)responder enable_mask:(BOOL)enable_mask;
+- (void)set_keyboard_accessory:(UIView*)view_accessory item:(UIBarItem*)item responder:(UIResponder*)responder enable_mask:(BOOL)enable_mask;
 - (void)lf_action_keyboard_accessory_dismiss;
 
 @end
