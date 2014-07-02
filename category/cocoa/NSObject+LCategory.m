@@ -123,15 +123,25 @@
 
 - (int)default_int_inc
 {
-	int i = [self default_int];
-	[self default_int:i + 1];
-	return i;
+	return [self default_int_inc:i];
 }
 
 - (int)default_int_dec
 {
+	return [self default_int_dec:i];
+}
+
+- (int)default_int_inc:(int)integer
+{
 	int i = [self default_int];
-	[self default_int:i - 1];
+	[self default_int:i + integer];
+	return i;
+}
+
+- (int)default_int_dec:(int)integer
+{
+	int i = [self default_int];
+	[self default_int:i - integer];
 	return i;
 }
 

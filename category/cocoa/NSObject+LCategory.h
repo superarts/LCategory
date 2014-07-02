@@ -39,6 +39,8 @@
 - (void)default_int:(int)i;
 - (int)default_int_inc;
 - (int)default_int_dec;
+- (int)default_int_inc:(int)integer;
+- (int)default_int_dec:(int)integer;
 - (void)default_string:(NSString*)s;
 - (void)default_obj:(NSObject*)obj;
 - (void)default_object:(id)obj;
