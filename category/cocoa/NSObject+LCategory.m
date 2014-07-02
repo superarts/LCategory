@@ -123,12 +123,12 @@
 
 - (int)default_int_inc
 {
-	return [self default_int_inc:i];
+	return [self default_int_inc:1];
 }
 
 - (int)default_int_dec
 {
-	return [self default_int_dec:i];
+	return [self default_int_dec:1];
 }
 
 - (int)default_int_inc:(int)integer
