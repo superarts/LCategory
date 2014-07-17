@@ -126,6 +126,7 @@
 	} \
 
 typedef void(^LFBlockVoidPath)					(NSIndexPath* path);
+typedef CGFloat(^LFBlockFloatPath)				(NSIndexPath* path);
 typedef UITableViewCell*(^LFBlockCellPath)		(NSIndexPath* path);
 typedef UITableViewCell*(^LFBlockCellTablePath)	(UITableView* table, NSIndexPath* path);
 
@@ -134,6 +135,7 @@ typedef UITableViewCell*(^LFBlockCellTablePath)	(UITableView* table, NSIndexPath
 lc_property(NSMutableArray*,counts);
 lc_property(LFBlockCellPath,block_cell);
 lc_property(LFBlockVoidPath,block_select);
+lc_property(LFBlockFloatPath,block_height);
 
 - (void)enable_block;
 - (void)reload_block;

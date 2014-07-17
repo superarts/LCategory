@@ -424,6 +424,7 @@
 lc_synthesize(NSMutableArray*,counts);
 lc_synthesize(LFBlockCellPath,block_cell);
 lc_synthesize(LFBlockVoidPath,block_select);
+lc_synthesize(LFBlockFloatPath,block_height);
 
 - (void)enable_block
 {
@@ -437,6 +438,17 @@ lc_synthesize(LFBlockVoidPath,block_select);
 {
 	[self enable_block];
 	[self reloadData];
+}
+
+- (CGFloat)tableView:(UITableView *)table heightForRowAtIndexPath:(NSIndexPath *)path
+{
+	CGFloat height = -1;
+	if (table == self)
+		if (self.block_height)
+			height = self.block_height(path);
+	if (height < 0)
+		height = table.rowHeight;
+	return height;
 }
 
 - (NSInteger)tableView:(UITableView*)table numberOfRowsInSection:(NSInteger)section
