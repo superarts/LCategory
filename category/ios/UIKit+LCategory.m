@@ -478,3 +478,53 @@ lc_synthesize(LFBlockFloatPath,block_height);
 }
 
 @end
+
+
+@implementation UIScrollView (lc_content)
+- (CGFloat)content_x
+{
+    return self.contentOffset.x;
+}
+- (CGFloat)content_y
+{
+    return self.contentOffset.y;
+}
+- (CGFloat)content_w
+{
+    return self.contentSize.width;
+}
+- (CGFloat)content_h
+{
+    return self.contentSize.height;
+}
+- (void)setContent_x:(CGFloat)x 
+{
+	CGPoint point = self.contentOffset;
+	self.contentOffset = CGPointMake(x, point.y);
+}
+- (void)setContent_y:(CGFloat)y 
+{
+	CGPoint point = self.contentOffset;
+	self.contentOffset = CGPointMake(point.x, y);
+}
+- (void)setContent_w:(CGFloat)w
+{
+	CGSize size = self.contentSize;
+	self.contentSize = CGSizeMake(w, size.height);
+}
+- (void)setContent_h:(CGFloat)h
+{
+	CGSize size = self.contentSize;
+	self.contentSize = CGSizeMake(size.width, h);
+}
+- (void)animate_content_x:(CGFloat)x 
+{
+	CGPoint point = self.contentOffset;
+	[self setContentOffset:CGPointMake(x, point.y) animated:YES];
+}
+- (void)animate_content_y:(CGFloat)y 
+{
+	CGPoint point = self.contentOffset;
+	[self setContentOffset:CGPointMake(point.x, y) animated:YES];
+}
+@end

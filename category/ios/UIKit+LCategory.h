@@ -141,3 +141,13 @@ lc_property(LFBlockFloatPath,block_height);
 - (void)reload_block;
 
 @end
+
+
+@interface UIScrollView (lc_content)
+@property (nonatomic, assign) CGFloat content_x;
+@property (nonatomic, assign) CGFloat content_y;
+@property (nonatomic, assign) CGFloat content_w;
+@property (nonatomic, assign) CGFloat content_h;
+- (void)animate_content_x:(CGFloat)x;
+- (void)animate_content_y:(CGFloat)y;
+@end
