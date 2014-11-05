@@ -494,3 +494,159 @@
 }
 
 @end
+
+
+@implementation NSString (lc_file)
+
+//	IMPORTANT: this function is for backward compatability - use filename_documents for real access to /Documents
+- (NSString*)filename_document
+{
+	return [self filename_private];
+}
+
+- (NSString*)filename_documents
+{
+    return [[NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) 
+		objectAtIndex:0] stringByAppendingPathComponent:self];
+}
+
+- (NSString*)filename_library
+{
+    return [[NSSearchPathForDirectoriesInDomains(NSLibraryDirectory, NSUserDomainMask, YES) 
+		objectAtIndex:0] stringByAppendingPathComponent:self];
+}
+
+- (NSString*)filename_private:(NSString*)dir
+{
+	NSString* private = [[@"" filename_library] stringByAppendingFormat:@"/doc-private/%@", dir];
+	[private create_dir_absolute];
+	return [private stringByAppendingPathComponent:self];
+}
+
+- (NSString*)filename_private
+{
+	return [self filename_private:@"./"];
+}
+
+- (NSString*)filename_bundle
+{
+    return [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:self];
+}
+
+- (BOOL)is_directory
+{
+	BOOL	b;
+
+    NSFileManager *file_manager = [NSFileManager defaultManager];
+	[file_manager fileExistsAtPath:[self filename_document] isDirectory:&b];
+
+	return b;
+}
+
+- (BOOL)file_exists
+{
+    NSFileManager *file_manager = [NSFileManager defaultManager];
+    return [file_manager fileExistsAtPath:[self filename_document]];
+}
+
+- (BOOL)file_exists_documents
+{
+    NSFileManager *file_manager = [NSFileManager defaultManager];
+    return [file_manager fileExistsAtPath:[self filename_documents]];
+}
+
+- (BOOL)file_exists_bundle
+{
+    NSFileManager *file_manager = [NSFileManager defaultManager];
+    return [file_manager fileExistsAtPath:[self filename_bundle]];
+}
+
+- (BOOL)file_exists_absolute
+{
+    NSFileManager *file_manager = [NSFileManager defaultManager];
+    return [file_manager fileExistsAtPath:self];
+}
+
+- (BOOL)create_dir_absolute
+{
+	NSFileManager*	manager = [NSFileManager defaultManager];
+	BOOL ret = [manager createDirectoryAtPath:self withIntermediateDirectories:YES attributes:nil error:nil];
+	//	NSLog(@"create dir: %i", ret);
+	return ret;
+}
+
+- (BOOL)create_dir
+{
+	return [[self filename_document] create_dir_absolute];
+}
+
+- (BOOL)file_remove
+{
+	NSFileManager *fileManager = [NSFileManager defaultManager];
+	NSLog(@"about to remove: %@", [self filename_document]);
+	return [fileManager removeItemAtPath:[self filename_document] error:nil];
+}
+
+- (BOOL)file_backup
+{
+	NSError* error;
+
+	if ([[self filename_documents] file_exists])
+		return NO;
+	else
+	{
+		[[NSFileManager defaultManager] 
+			//linkItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:name]
+			  copyItemAtPath:[[[NSBundle mainBundle] resourcePath] stringByAppendingPathComponent:self]
+					  toPath:[self filename_documents]
+					   error:&error];
+			//handler:nil];
+		if (error != nil)
+		{
+			NSLog(@"ERROR backup: %@", error);	//.localizedDescription);
+			return NO;
+		}
+		else
+			return YES;
+	}
+
+	return NO;
+}
+
+- (void)delete_files:(NSString*)keyword day:(int)day
+{
+	[self delete_files:keyword second:day * 24 * 60 * 60];
+}
+
+- (void)delete_files:(NSString*)keyword second:(int)second
+{
+	NSString* path = self;
+
+	//Delete files by iterating items of the folder.
+	NSFileManager* fm = [[NSFileManager alloc] init];
+	NSDirectoryEnumerator* en = [fm enumeratorAtPath:path];    
+	NSError* err = nil;
+	BOOL res;
+
+	NSString* file;
+	while (file = [en nextObject]) 
+	{
+		file = [path stringByAppendingPathComponent:file];
+		NSDate* time_created = [[fm attributesOfItemAtPath:file error:&err] fileCreationDate];
+		NSDate* time_old = [[NSDate date] dateByAddingTimeInterval:(-1 * second)];
+
+		//NSLog(@"FILE deleting %@: %@\n%@\n%@\nerror: %@\n\n", keyword, file, time_created, time_old, err);
+		if (([time_created compare:time_old] == NSOrderedAscending) && [file contains:keyword])
+		{
+			res = [fm removeItemAtPath:file error:&err];
+			if (!res && err) 
+				NSLog(@"FILE delete error: %@", err);
+			else
+				NSLog(@"FILE deleted: %@", file);
+		}
+		else
+			NSLog(@"FILE deleted: not old enough");
+	}
+}
+
+@end

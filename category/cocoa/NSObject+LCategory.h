@@ -85,6 +85,29 @@
 @end
 
 
+@interface NSString (lc_file)
+
+- (NSString*)filename_document;
+- (NSString*)filename_documents;
+- (NSString*)filename_library;
+- (NSString*)filename_private:(NSString*)dir;
+- (NSString*)filename_private;
+- (NSString*)filename_bundle;
+- (BOOL)is_directory;
+- (BOOL)file_exists;
+- (BOOL)file_exists_documents;
+- (BOOL)file_exists_bundle;
+- (BOOL)file_exists_absolute;
+- (BOOL)create_dir_absolute;
+- (BOOL)create_dir;
+- (BOOL)file_remove;
+- (BOOL)file_backup;
+- (void)delete_files:(NSString*)keyword day:(int)day;
+- (void)delete_files:(NSString*)keyword second:(int)second;
+
+@end
+
+
 @interface NSNotificationCenter (lc_unique_notification)
 
 - (void)add_observer_unique:(id)observer selector:(SEL)selector name:(NSString *)name object:(id)object;
