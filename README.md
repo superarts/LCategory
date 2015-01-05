@@ -1,3 +1,7 @@
+# About LSwift
+
+I'm moving to Swift so this project is paused. Since cocoapods doesn't support Swift at the moment, LSwift will be released when it's more matured, and hopefully I'll be able to figure out the best practise of sharing Swift code by then. I may not keep updating this project since there's no one watching it currently.
+
 # LCategory
 
 Part of https://github.com/superarts/LFramework
