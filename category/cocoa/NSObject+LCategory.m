@@ -282,7 +282,7 @@
 
 - (NSString*)string_without:(NSString*)head to:(NSString*)tail
 {
-	return [self string_without:head to:tail except:[NSArray arrayWithObjects:nil]];
+	return [self string_without:head to:tail except:[NSArray array]];
 }
 
 - (NSString*)string_without:(NSString*)head to:(NSString*)tail except:(NSArray*)exceptions
