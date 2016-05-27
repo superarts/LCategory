@@ -76,19 +76,19 @@
 
 
 @interface UIButton (lc_custom_font)
-@property (nonatomic, copy) NSString* font_name;
+@property (nonatomic, copy) IBInspectable NSString* font_name;
 @end
  
 @interface UILabel (lc_custom_font)
-@property (nonatomic, copy) NSString* font_name;
+@property (nonatomic, copy) IBInspectable NSString* font_name;
 @end
  
 @interface UITextView (lc_custom_font)
-@property (nonatomic, copy) NSString* font_name;
+@property (nonatomic, copy) IBInspectable NSString* font_name;
 @end
  
 @interface UITextField (lc_custom_font)
-@property (nonatomic, copy) NSString* font_name;
+@property (nonatomic, copy) IBInspectable NSString* font_name;
 @end
 
 
