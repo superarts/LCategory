@@ -81,6 +81,7 @@
 - (NSString*)append_line:(NSString*)str;
 - (NSString*)append_line2:(NSString*)str;
 - (NSString*)append:(NSString*)str divider:(NSString*)divider;
+- (NSString*)capitalize_first;
 
 @end
 

@@ -528,3 +528,54 @@ lc_synthesize(LFBlockFloatPath,block_height);
 	[self setContentOffset:CGPointMake(point.x, y) animated:YES];
 }
 @end
+
+
+@implementation UIView (lc_ib)
+- (void)setMaskCircleEnabled:(BOOL)b
+{
+	if (b) [self enable_mask_circle];
+}
+- (BOOL)maskCircleEnabled
+{
+	NSLog(@"WARNING: no getter for maskCircleEnabled");
+	return NO;
+}
+- (void)setShadow:(CGFloat)f
+{
+	UIBezierPath* path = [UIBezierPath bezierPathWithRect:self.bounds];
+	self.layer.masksToBounds = NO;
+	self.layer.shadowColor = [UIColor blackColor].CGColor;
+	self.layer.shadowOffset = CGSizeMake(-3, 3);
+	self.layer.shadowOpacity = f;
+	self.layer.shadowPath = path.CGPath;
+}
+- (CGFloat)shadow
+{
+	NSLog(@"WARNING: no getter for shadow");
+	return 0;
+}
+- (void)setRadius:(CGFloat)f
+{
+	[self enable_border_width:0 color:[UIColor clearColor] radius:f];
+}
+- (CGFloat)radius
+{
+	NSLog(@"WARNING: no getter for radius");
+	return 0;
+}
+//	TODO: not working
+- (void)setSolidCircleShadowEnabled:(BOOL)b
+{
+	if (b) 
+	{
+		UIView* shadow = [[UIView alloc] initWithFrame:self.frame];
+		shadow.backgroundColor = [UIColor blackColor];
+		[self.superview insertSubview:shadow belowSubview:self];
+	}
+}
+- (BOOL)solidCircleShadowEnabled
+{
+	NSLog(@"WARNING: no getter for solidCircleShadowEnabled");
+	return NO;
+}
+@end

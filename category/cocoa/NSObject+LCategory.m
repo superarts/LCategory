@@ -482,6 +482,17 @@
 	return self;
 }
 
+- (NSString*)capitalize_first
+{
+	NSLocale *locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en-US"];
+	NSString *input = self;
+	/* get first char */
+	NSString *firstChar = [input substringToIndex:1];
+	NSString *folded = [firstChar stringByFoldingWithOptions:NSDiacriticInsensitiveSearch locale:locale];
+	NSString *result = [[folded uppercaseString] stringByAppendingString:[input substringFromIndex:1]];
+	return result;
+}
+
 @end
 
 

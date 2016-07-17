@@ -1,4 +1,5 @@
 #import <UIKit/UIKit.h>
+#import <CoreGraphics/CoreGraphics.h>
 #import "LCategory.h"
 
 //	TODO: split into multiple files
@@ -150,4 +151,12 @@ lc_property(LFBlockFloatPath,block_height);
 @property (nonatomic, assign) CGFloat content_h;
 - (void)animate_content_x:(CGFloat)x;
 - (void)animate_content_y:(CGFloat)y;
+@end
+
+
+@interface UIView (lc_ib)
+@property (nonatomic) IBInspectable BOOL maskCircleEnabled;
+@property (nonatomic) IBInspectable CGFloat shadow;
+@property (nonatomic) IBInspectable CGFloat radius;
+@property (nonatomic) IBInspectable BOOL solidCircleShadowEnabled;
 @end
